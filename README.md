@@ -32,11 +32,18 @@ docker run -d -p 3128:3128 -e TORS=10 -e PROXY_USER=myuser -e PROXY_PASSWORD=myp
 *   `PROXY_USER`: Username for Squid authentication (default: admin).
 *   `PROXY_PASSWORD`: Password for Squid authentication (default: password).
 *   `TOR_MAX_CIRCUIT_DIRTINESS`: Interval in seconds to automatically rebuild Tor circuits (default: Tor default, usually 10 minutes). Set to e.g. `60` for 1 minute rotation.
+*   `TOR_NEW_CIRCUIT_PERIOD`: Period in seconds to consider creating a new circuit (default: 30).
 *   `TOR_EXIT_NODES`: Comma separated list of exit nodes or country codes (e.g. `{us},{jp}`).
+*   `TOR_ENTRY_NODES`: Comma separated list of entry nodes or country codes (e.g. `{us}`).
 *   `TOR_STRICT_NODES`: Set to `1` to force Tor to use only the configured ExitNodes (default: 0).
 *   `TOR_EXCLUDE_EXIT_NODES`: Comma separated list of exit nodes or country codes to exclude (e.g. `{ru},{cn}`).
 *   `TOR_EXCLUDE_NODES`: Comma separated list of nodes or country codes to exclude from ANY position in the circuit.
 *   `TOR_GEOIP_EXCLUDE_UNKNOWN`: Set to `1` to exclude nodes with unknown country codes (default: auto).
+*   `TOR_USE_ENTRY_GUARDS`: Set to `1` to use Entry Guards (default: 1).
+*   `TOR_NUM_ENTRY_GUARDS`: Number of Entry Guards to use (default: auto).
+*   `TOR_BANDWIDTH_RATE`: Maximum bandwidth rate (e.g. `5 MBits`).
+*   `TOR_BANDWIDTH_BURST`: Maximum bandwidth burst (e.g. `10 MBits`).
+*   `TOR_CONN_LIMIT`: Minimum number of file descriptors to limit to (e.g. `100`).
 
 ### Test
 

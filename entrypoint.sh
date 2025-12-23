@@ -58,9 +58,19 @@ for i in $(seq 1 $TOR_INSTANCES); do
         echo "MaxCircuitDirtiness $TOR_MAX_CIRCUIT_DIRTINESS" >> "$TORRC"
     fi
 
+    # Set NewCircuitPeriod if provided
+    if [ ! -z "$TOR_NEW_CIRCUIT_PERIOD" ]; then
+        echo "NewCircuitPeriod $TOR_NEW_CIRCUIT_PERIOD" >> "$TORRC"
+    fi
+
     # Set ExitNodes if provided (e.g. {us},{jp})
     if [ ! -z "$TOR_EXIT_NODES" ]; then
         echo "ExitNodes $TOR_EXIT_NODES" >> "$TORRC"
+    fi
+
+    # Set EntryNodes if provided (e.g. {us})
+    if [ ! -z "$TOR_ENTRY_NODES" ]; then
+        echo "EntryNodes $TOR_ENTRY_NODES" >> "$TORRC"
     fi
 
     # Set StrictNodes if provided (0 or 1)
@@ -81,6 +91,31 @@ for i in $(seq 1 $TOR_INSTANCES); do
     # Set GeoIPExcludeUnknown if provided (0, 1, or auto)
     if [ ! -z "$TOR_GEOIP_EXCLUDE_UNKNOWN" ]; then
         echo "GeoIPExcludeUnknown $TOR_GEOIP_EXCLUDE_UNKNOWN" >> "$TORRC"
+    fi
+
+    # Set UseEntryGuards if provided (0 or 1)
+    if [ ! -z "$TOR_USE_ENTRY_GUARDS" ]; then
+        echo "UseEntryGuards $TOR_USE_ENTRY_GUARDS" >> "$TORRC"
+    fi
+
+    # Set NumEntryGuards if provided
+    if [ ! -z "$TOR_NUM_ENTRY_GUARDS" ]; then
+        echo "NumEntryGuards $TOR_NUM_ENTRY_GUARDS" >> "$TORRC"
+    fi
+
+    # Set BandwidthRate if provided
+    if [ ! -z "$TOR_BANDWIDTH_RATE" ]; then
+        echo "BandwidthRate $TOR_BANDWIDTH_RATE" >> "$TORRC"
+    fi
+
+    # Set BandwidthBurst if provided
+    if [ ! -z "$TOR_BANDWIDTH_BURST" ]; then
+        echo "BandwidthBurst $TOR_BANDWIDTH_BURST" >> "$TORRC"
+    fi
+
+    # Set ConnLimit if provided
+    if [ ! -z "$TOR_CONN_LIMIT" ]; then
+        echo "ConnLimit $TOR_CONN_LIMIT" >> "$TORRC"
     fi
     
     # Run Tor as 'tor' user in background
