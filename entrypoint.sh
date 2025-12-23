@@ -53,7 +53,7 @@ for i in $(seq 1 $TOR_INSTANCES); do
     echo "SocksPort $TOR_PORT" > "$TORRC"
     echo "DataDirectory $TOR_DIR" >> "$TORRC"
     
-    # Set MaxCircuitDirtiness if provided (controls automatic circuit rebuild interval)
+    # Set MaxCircuitDirtiness if provided (controls how long a circuit is used before new streams use a new circuit)
     if [ ! -z "$TOR_MAX_CIRCUIT_DIRTINESS" ]; then
         echo "MaxCircuitDirtiness $TOR_MAX_CIRCUIT_DIRTINESS" >> "$TORRC"
     fi
