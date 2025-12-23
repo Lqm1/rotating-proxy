@@ -67,6 +67,21 @@ for i in $(seq 1 $TOR_INSTANCES); do
     if [ ! -z "$TOR_STRICT_NODES" ]; then
         echo "StrictNodes $TOR_STRICT_NODES" >> "$TORRC"
     fi
+
+    # Set ExcludeExitNodes if provided (e.g. {ru},{cn})
+    if [ ! -z "$TOR_EXCLUDE_EXIT_NODES" ]; then
+        echo "ExcludeExitNodes $TOR_EXCLUDE_EXIT_NODES" >> "$TORRC"
+    fi
+
+    # Set ExcludeNodes if provided (prevents using nodes in any position)
+    if [ ! -z "$TOR_EXCLUDE_NODES" ]; then
+        echo "ExcludeNodes $TOR_EXCLUDE_NODES" >> "$TORRC"
+    fi
+
+    # Set GeoIPExcludeUnknown if provided (0, 1, or auto)
+    if [ ! -z "$TOR_GEOIP_EXCLUDE_UNKNOWN" ]; then
+        echo "GeoIPExcludeUnknown $TOR_GEOIP_EXCLUDE_UNKNOWN" >> "$TORRC"
+    fi
     
     # Run Tor as 'tor' user in background
     su -s /bin/sh tor -c "tor -f $TORRC > /dev/null" &

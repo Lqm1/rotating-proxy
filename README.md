@@ -34,6 +34,9 @@ docker run -d -p 3128:3128 -e TORS=10 -e PROXY_USER=myuser -e PROXY_PASSWORD=myp
 *   `TOR_MAX_CIRCUIT_DIRTINESS`: Interval in seconds to automatically rebuild Tor circuits (default: Tor default, usually 10 minutes). Set to e.g. `60` for 1 minute rotation.
 *   `TOR_EXIT_NODES`: Comma separated list of exit nodes or country codes (e.g. `{us},{jp}`).
 *   `TOR_STRICT_NODES`: Set to `1` to force Tor to use only the configured ExitNodes (default: 0).
+*   `TOR_EXCLUDE_EXIT_NODES`: Comma separated list of exit nodes or country codes to exclude (e.g. `{ru},{cn}`).
+*   `TOR_EXCLUDE_NODES`: Comma separated list of nodes or country codes to exclude from ANY position in the circuit.
+*   `TOR_GEOIP_EXCLUDE_UNKNOWN`: Set to `1` to exclude nodes with unknown country codes (default: auto).
 
 ### Test
 
