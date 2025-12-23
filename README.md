@@ -43,7 +43,7 @@ docker run -d -p 3128:3128 -e TORS=10 -e PROXY_USER=myuser -e PROXY_PASSWORD=myp
 *   `TOR_NUM_ENTRY_GUARDS`: Number of Entry Guards to use (default: auto).
 *   `TOR_BANDWIDTH_RATE`: Maximum bandwidth rate (e.g. `5 MBits`).
 *   `TOR_BANDWIDTH_BURST`: Maximum bandwidth burst (e.g. `10 MBits`).
-*   `TOR_CONN_LIMIT`: Minimum number of file descriptors to limit to (e.g. `100`).
+*   `TOR_CONN_LIMIT`: Minimum number of file descriptors Tor will attempt to maintain (e.g. `100`).
 
 ### Test
 
