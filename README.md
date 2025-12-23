@@ -31,6 +31,7 @@ docker run -d -p 3128:3128 -e TORS=10 -e PROXY_USER=myuser -e PROXY_PASSWORD=myp
 *   `TORS`: Number of Tor instances to run (default: 10).
 *   `PROXY_USER`: Username for Squid authentication (default: admin).
 *   `PROXY_PASSWORD`: Password for Squid authentication (default: password).
+*   `TOR_MAX_CIRCUIT_DIRTINESS`: Interval in seconds to automatically rebuild Tor circuits (default: Tor default, usually 10 minutes). Set to e.g. `60` for 1 minute rotation.
 
 ### Test
 

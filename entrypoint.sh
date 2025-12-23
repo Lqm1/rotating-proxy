@@ -53,6 +53,11 @@ for i in $(seq 1 $TOR_INSTANCES); do
     echo "SocksPort $TOR_PORT" > "$TORRC"
     echo "DataDirectory $TOR_DIR" >> "$TORRC"
     
+    # Set MaxCircuitDirtiness if provided (controls automatic circuit rebuild interval)
+    if [ ! -z "$TOR_MAX_CIRCUIT_DIRTINESS" ]; then
+        echo "MaxCircuitDirtiness $TOR_MAX_CIRCUIT_DIRTINESS" >> "$TORRC"
+    fi
+    
     # Run Tor as 'tor' user in background
     su -s /bin/sh tor -c "tor -f $TORRC > /dev/null" &
     
