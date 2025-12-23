@@ -32,6 +32,8 @@ docker run -d -p 3128:3128 -e TORS=10 -e PROXY_USER=myuser -e PROXY_PASSWORD=myp
 *   `PROXY_USER`: Username for Squid authentication (default: admin).
 *   `PROXY_PASSWORD`: Password for Squid authentication (default: password).
 *   `TOR_MAX_CIRCUIT_DIRTINESS`: Interval in seconds to automatically rebuild Tor circuits (default: Tor default, usually 10 minutes). Set to e.g. `60` for 1 minute rotation.
+*   `TOR_EXIT_NODES`: Comma separated list of exit nodes or country codes (e.g. `{us},{jp}`).
+*   `TOR_STRICT_NODES`: Set to `1` to force Tor to use only the configured ExitNodes (default: 0).
 
 ### Test
 

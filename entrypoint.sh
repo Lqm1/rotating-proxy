@@ -57,6 +57,16 @@ for i in $(seq 1 $TOR_INSTANCES); do
     if [ ! -z "$TOR_MAX_CIRCUIT_DIRTINESS" ]; then
         echo "MaxCircuitDirtiness $TOR_MAX_CIRCUIT_DIRTINESS" >> "$TORRC"
     fi
+
+    # Set ExitNodes if provided (e.g. {us},{jp})
+    if [ ! -z "$TOR_EXIT_NODES" ]; then
+        echo "ExitNodes $TOR_EXIT_NODES" >> "$TORRC"
+    fi
+
+    # Set StrictNodes if provided (0 or 1)
+    if [ ! -z "$TOR_STRICT_NODES" ]; then
+        echo "StrictNodes $TOR_STRICT_NODES" >> "$TORRC"
+    fi
     
     # Run Tor as 'tor' user in background
     su -s /bin/sh tor -c "tor -f $TORRC > /dev/null" &
