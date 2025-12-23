@@ -1,51 +1,46 @@
-docker-rotating-proxy
-=====================
+# Docker Rotating Proxy
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/mattes/rotating-proxy.svg)](https://hub.docker.com/r/mattes/rotating-proxy/)
+A rotating proxy server using Squid, Privoxy, and Tor.
 
 ```
                Docker Container
-               -------------------------------------
-                        <-> Polipo 1 <-> Tor Proxy 1
-Client <---->  HAproxy  <-> Polipo 2 <-> Tor Proxy 2
-                        <-> Polipo n <-> Tor Proxy n
+               -------------------------------------------------------
+                        <-> Privoxy 1 <-> Tor Proxy 1
+Client <---->  Squid    <-> Privoxy 2 <-> Tor Proxy 2
+                        <-> Privoxy n <-> Tor Proxy n
 ```
 
-__Why:__ Lots of IP addresses. One single endpoint for your client.
-Load-balancing by HAproxy.
+**Why:** Lots of IP addresses. One single endpoint for your client. Load-balancing by Squid.
 
-Usage
------
+## Usage
+
+### Build
 
 ```bash
-# build docker container
-docker build -t mattes/rotating-proxy:latest .
-
-# ... or pull docker container
-docker pull mattes/rotating-proxy:latest
-
-# start docker container
-docker run -d -p 5566:5566 -p 4444:4444 --env tors=25 mattes/rotating-proxy
-
-# test with ...
-curl --proxy 127.0.0.1:5566 https://api.my-ip.io/ip
-
-# monitor
-http://127.0.0.1:4444/haproxy?stats
+docker build -t rotating-proxy .
 ```
 
+### Run
 
-Further Readings
-----------------
+```bash
+docker run -d -p 3128:3128 -e TORS=10 -e PROXY_USER=myuser -e PROXY_PASSWORD=mypassword rotating-proxy
+```
 
- * [Tor Manual](https://www.torproject.org/docs/tor-manual.html.en)
- * [Tor Control](https://www.thesprawl.org/research/tor-control-protocol/)
- * [HAProxy Manual](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html)
- * [Polipo](http://www.pps.univ-paris-diderot.fr/~jch/software/polipo/)
+### Environment Variables
 
---------------
+*   `TORS`: Number of Tor instances to run (default: 10).
+*   `PROXY_USER`: Username for Squid authentication (default: admin).
+*   `PROXY_PASSWORD`: Password for Squid authentication (default: password).
 
-Please note: Tor offers a SOCKS Proxy only. In order to allow communication
-from HAproxy to Tor, Polipo is used to translate from HTTP proxy to SOCKS proxy.
-HAproxy is able to talk to HTTP proxies only.
+### Test
+
+```bash
+curl -x http://myuser:mypassword@localhost:3128 https://httpbin.org/ip
+```
+
+## Architecture
+
+*   **Squid**: Acts as the entry point and load balancer. It handles authentication and distributes requests to Privoxy instances in a round-robin fashion.
+*   **Privoxy**: Converts HTTP requests to SOCKS5 requests for Tor.
+*   **Tor**: Provides anonymity and IP rotation. Multiple instances are run to provide different exit nodes.
 
